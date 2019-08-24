@@ -1,10 +1,12 @@
 package command;
 
-import commons.DukeException;
-import task.Task;
+import commons.*;
+import task.*;
+import command.*;
+import storage.*;
 
 import java.util.ArrayList;
 
 public abstract class Command {
-    abstract public void execute(ArrayList<Task> tasks) throws DukeException;
+    abstract public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException;
 }

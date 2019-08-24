@@ -1,6 +1,6 @@
 package task;
 
-public abstract class Task {
+public abstract class Task implements java.io.Serializable {
 
     protected String description;
     protected boolean isDone;

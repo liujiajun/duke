@@ -1,11 +1,10 @@
 package command;
 
-import commons.DukeException;
-import commons.Message;
-import commons.Ui;
-import task.Task;
-
-import java.util.ArrayList;
+import commons.*;
+import task.*;
+import command.*;
+import storage.*;
+import java.util.*;
 
 public class DeleteCommand extends Command {
     private int index;
@@ -14,10 +13,11 @@ public class DeleteCommand extends Command {
         this.index = index - 1;
     }
 
-    public void execute(ArrayList<Task> tasks) throws DukeException {
+    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
         try {
             String message = Message.getDeletion(tasks.get(index), tasks);
             tasks.remove(index);
+            storage.serialize(tasks);
             Ui.showToUser(message);
         } catch (IndexOutOfBoundsException e) {
             System.out.println(e.getMessage());
