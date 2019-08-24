@@ -73,9 +73,9 @@ public class Duke {
             case COMMAND_LIST:
                 executeList();
                 break;
-//            case COMMAND_DONE:
-//                setDone(line);
-//                break;
+            case COMMAND_DONE:
+                setDone(line);
+                break;
             case COMMAND_BYE:
                 executeQuit();
                 break;
