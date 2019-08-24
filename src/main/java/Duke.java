@@ -60,7 +60,7 @@ public class Duke {
         try {
             argsLine = line.strip().substring(line.indexOf(" ") + 1);
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException("Please enter valid arguemnts");
+            throw new DukeException("Please enter valid arguemnts.");
         }
 
         String[] splitted = argsLine.strip().split(" /");
