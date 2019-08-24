@@ -1,16 +1,20 @@
 package task;
 
+import parser.TimeParser;
+
+import java.util.Date;
+
 public class Deadline extends Task {
 
-    protected String by;
+    protected Date by;
 
-    public Deadline(String description, String by) {
+    public Deadline(String description, Date by) {
         super(description);
         this.by = by;
     }
 
     @Override
     public String toString() {
-        return String.format(super.toString(), "⏰") + String.format(" (by: %s)", by);
+        return String.format(super.toString(), "⏰") + String.format(" (by: %s)", TimeParser.convertDateToString(by));
     }
 }

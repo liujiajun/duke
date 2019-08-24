@@ -94,7 +94,7 @@ public class Parser {
         if (args.get("primary") == null) { throw new DukeException("Please enter deadline description"); }
         if (args.get("by") == null) { throw new DukeException("Please enter deadline date"); }
 
-        Deadline ddl = new Deadline(args.get("primary"), args.get("by"));
+        Deadline ddl = new Deadline(args.get("primary"), TimeParser.convertStringToDate(args.get("by")));
         return new AddCommand(ddl);
     }
 
@@ -104,7 +104,7 @@ public class Parser {
         if (args.get("primary") == null) { throw new DukeException("Please enter event description"); }
         if (args.get("at") == null) { throw new DukeException("Please enter event date"); }
 
-        Event evt = new Event(args.get("primary"), args.get("at"));
+        Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(args.get("at")));
         return new AddCommand(evt);
     }
 
