@@ -1,91 +1,132 @@
+import command.*;
+import task.*;
+import commons.*;
 import java.util.*;
 
 public class Duke {
-    private static final String BEGIN_DIVIDER = "____________________________________________________________";
+    private static final String BEGIN_DIVIDER = "----------------------------------------------";
     private static final String END_DIVIDER = BEGIN_DIVIDER + System.lineSeparator();
     private static final String LINE_PREFIX = "     ";
 
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_BYE = "bye";
     private static final String COMMAND_DONE = "done";
+    private static final String COMMAND_TODO = "todo";
+    private static final String COMMAND_DEADLINE = "deadline";
+    private static final String COMMAND_EVENT = "event";
+    private static final String COMMAND_DELETE = "delete";
 
-    private static final String MESSAGE_HELLO = "Hello! I'm Duke";
-    private static final String MESSAGE_HELLO_2 = "What can I do for you?";
-    private static final String MESSAGE_ADDED = "added: %1$s";
-    private static final String MESSAGE_LIST_ITEM = "%1$d. %2$s %3$s";
-    private static final String MESSAGE_BYE = "Bye. Hope to see you again soon!";
-    private static final String MESSAGE_FINISH_DONE = "Nice! I've marked this task as done: ";
-    private static final String MESSAGE_DONE_ITEM = "✅ %1$s";
-
-    private static final Scanner SCAN = new Scanner(System.in);
+    private static final Scanner SCANNER = new Scanner(System.in);
 
     private static ArrayList<Task> tasks = new ArrayList<>();
 
     public static void main(String[] args) {
-        String logo = " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n";
-        System.out.println("Hello from\n" + logo);
+        Ui.showToUser(Message.getWelcome());
+        while(SCANNER.hasNextLine()) {
+            String line = SCANNER.nextLine();
+            try {
+                Command command = getCommand(line);
+                command.execute(tasks);
+            } catch (DukeException e) {
+                Ui.showError(e.getMessage());
+            }
 
-        showToUser(BEGIN_DIVIDER, MESSAGE_HELLO, MESSAGE_HELLO_2, END_DIVIDER);
-
-        while(SCAN.hasNextLine()) {
-            String userCommand = SCAN.nextLine();
-            executeCommand(userCommand);
         }
     }
 
-    private static void executeList() {
-        showToUser(BEGIN_DIVIDER);
-        int i = 0;
-        for (Task s : tasks) {
-            i++;
-            showToUser(String.format(MESSAGE_LIST_ITEM, i, s.getStatusIcon(), s.description));
-        }
-        showToUser(END_DIVIDER);
-    }
-
-    private static void executeAdd(String task) {
-        tasks.add(new Task(task));
-        showToUser(BEGIN_DIVIDER, String.format(MESSAGE_ADDED, task), END_DIVIDER);
-    }
-
-    private static void setDone(String line) {
-        String arg = line.strip().split(" ")[1];
-        int index = Integer.parseInt(arg) - 1;
-        tasks.get(index).setDone(true);
-        showToUser(BEGIN_DIVIDER, MESSAGE_FINISH_DONE, String.format(MESSAGE_DONE_ITEM, tasks.get(index).description), END_DIVIDER);
-    }
-
-    private static void executeQuit() {
-        showToUser(BEGIN_DIVIDER, MESSAGE_BYE, END_DIVIDER);
-        System.exit(0);
-    }
-
-    private static String getCommand(String line) {
-        return line.strip().split(" ")[0];
-    }
-    private static void executeCommand(String line) {
-        String command = getCommand(line);
-        switch (command) {
+    private static Command getCommand(String line) throws DukeException{
+        String commandWord = line.strip().split(" ")[0];
+        switch (commandWord) {
+            case COMMAND_TODO:
+                return parseTodo(line);
+            case COMMAND_DEADLINE:
+                return parseDeadline(line);
+            case COMMAND_EVENT:
+                return parseEvent(line);
             case COMMAND_LIST:
-                executeList();
-                break;
+                return parseList(line);
             case COMMAND_DONE:
-                setDone(line);
-                break;
-            case COMMAND_BYE:
-                executeQuit();
-                break;
-            default:
-                executeAdd(line);
+                return parseDone(line);
+//            case COMMAND_DELETE:
+//                return parseDeletion(line);
+        }
+        throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    private static Dictionary<String, String> getCommandArgs(String line) throws DukeException{
+        if (line.indexOf(" ") == -1) throw new DukeException("Please enter valid arguemnts");
+        Dictionary<String, String> args = new Hashtable<String, String>();
+        String argsLine;
+        try {
+            argsLine = line.strip().substring(line.indexOf(" ") + 1);
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException("Please enter valid arguemnts");
+        }
+
+        String[] splitted = argsLine.strip().split(" /");
+        args.put("primary", splitted[0]);
+        for (String s : splitted) {
+            if (s.isEmpty()) { continue; }
+            String para = s.split(" ")[0];
+            try {
+                String value = s.substring(s.indexOf(" ") + 1);
+                args.put(para, value);
+            } catch (StringIndexOutOfBoundsException e){
+                throw new DukeException("Please enter valid arguemnts");
+            }
+
+        }
+        return args;
+    }
+    private static Command parseTodo(String line) throws DukeException{
+        Dictionary<String, String> args = getCommandArgs(line);
+        Todo todo = new Todo(args.get("primary"));
+
+        if (args.get("primary") == null) { throw new DukeException("Please enter todo description"); }
+
+        return new AddCommand(todo);
+    }
+
+    private static Command parseDeadline(String line) throws DukeException{
+        Dictionary<String, String> args = getCommandArgs(line);
+        if (args.get("primary") == null) { throw new DukeException("Please enter deadline description"); }
+        if (args.get("by") == null) { throw new DukeException("Please enter deadline date"); }
+
+        Deadline ddl = new Deadline(args.get("primary"), args.get("by"));
+        return new AddCommand(ddl);
+    }
+
+    private static Command parseEvent(String line) throws DukeException{
+        Dictionary<String, String> args = getCommandArgs(line);
+
+        if (args.get("primary") == null) { throw new DukeException("Please enter event description"); }
+        if (args.get("at") == null) { throw new DukeException("Please enter event date"); }
+
+        Event evt = new Event(args.get("primary"), args.get("at"));
+        return new AddCommand(evt);
+    }
+
+    private static Command parseList(String line) {
+        return new ListCommand();
+    }
+
+    private static Command parseDone(String line) throws DukeException{
+        Dictionary<String, String> args = getCommandArgs(line);
+        try {
+            int index = Integer.parseInt(args.get("primary"));
+            return new DoneCommand(index);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a valid index number");
         }
     }
-    private static void showToUser(String... message) {
-        for (String m : message) {
-            System.out.println(LINE_PREFIX + m);
+
+    private static Command parseDeletion(String line) throws DukeException{
+        Dictionary<String, String> args = getCommandArgs(line);
+        try {
+            int index = Integer.parseInt(args.get("primary"));
+            return new DeleteCommand(index);
+        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+            throw new DukeException("Please enter a valid index number");
         }
     }
 }
