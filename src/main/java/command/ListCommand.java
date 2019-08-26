@@ -1,12 +1,13 @@
 package command;
 
-import commons.*;
-import task.*;
-import command.*;
-import storage.*;
-import java.util.*;
+import commons.Message;
+import commons.Ui;
+import storage.Storage;
+import task.Task;
 
-public class ListCommand extends Command{
+import java.util.ArrayList;
+
+public class ListCommand extends Command {
     public ListCommand() {
 
     }

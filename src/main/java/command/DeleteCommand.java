@@ -1,10 +1,12 @@
 package command;
 
-import commons.*;
-import task.*;
-import command.*;
-import storage.*;
-import java.util.*;
+import commons.DukeException;
+import commons.Message;
+import commons.Ui;
+import storage.Storage;
+import task.Task;
+
+import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
     private int index;

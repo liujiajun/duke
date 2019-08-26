@@ -1,9 +1,11 @@
 package parser;
 
-import commons.*;
-import task.*;
 import command.*;
-import java.util.*;
+import commons.DukeException;
+import commons.Message;
+import task.Deadline;
+import task.Event;
+import task.Todo;
 
 import java.util.Dictionary;
 import java.util.Hashtable;
@@ -38,6 +40,8 @@ public class Parser {
                 return parseList(line);
             case COMMAND_DONE:
                 return parseDone(line);
+            case COMMAND_BYE:
+                return parseExit(line);
 //            case COMMAND_DELETE:
 //                return parseDeletion(line);
 //            case COMMAND_SEARCH:
@@ -52,7 +56,9 @@ public class Parser {
 
         Pattern commandWordPattern = Pattern.compile("^(\\w+)(\\s+[^/]+)?");
         Matcher commandWordMatcher = commandWordPattern.matcher(line);
-        if (!commandWordMatcher.find()) { throw new DukeException("Please enter a command"); }
+        if (!commandWordMatcher.find()) {
+            throw new DukeException("Please enter a command");
+        }
         params.put("cmd", commandWordMatcher.group(1).strip());
         if (commandWordMatcher.group(2) != null) {
             params.put("primary", commandWordMatcher.group(2).strip());
@@ -66,7 +72,9 @@ public class Parser {
             if (s.isEmpty() || s.isBlank()) continue;
             Pattern attrAndValuePattern = Pattern.compile("/(\\w+) ([^/]+)|/(\\w+)");
             Matcher attrAndValueMatcher = attrAndValuePattern.matcher(s);
-            if (!attrAndValueMatcher.find()) { throw new DukeException("Please enter valid parameters"); }
+            if (!attrAndValueMatcher.find()) {
+                throw new DukeException("Please enter valid parameters");
+            }
 
             if (attrAndValueMatcher.group(2) == null) {
                 params.put(attrAndValueMatcher.group(3), "");
@@ -84,15 +92,21 @@ public class Parser {
         Dictionary<String, String> args = parseCommandAndParams(line);
         Todo todo = new Todo(args.get("primary"));
 
-        if (args.get("primary") == null) { throw new DukeException("Please enter todo description"); }
+        if (args.get("primary") == null) {
+            throw new DukeException("Please enter todo description");
+        }
 
         return new AddCommand(todo);
     }
 
     private static Command parseDeadline(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
-        if (args.get("primary") == null) { throw new DukeException("Please enter deadline description"); }
-        if (args.get("by") == null) { throw new DukeException("Please enter deadline date"); }
+        if (args.get("primary") == null) {
+            throw new DukeException("Please enter deadline description");
+        }
+        if (args.get("by") == null) {
+            throw new DukeException("Please enter deadline date");
+        }
 
         Deadline ddl = new Deadline(args.get("primary"), TimeParser.convertStringToDate(args.get("by")));
         return new AddCommand(ddl);
@@ -101,8 +115,12 @@ public class Parser {
     private static Command parseEvent(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
 
-        if (args.get("primary") == null) { throw new DukeException("Please enter event description"); }
-        if (args.get("at") == null) { throw new DukeException("Please enter event date"); }
+        if (args.get("primary") == null) {
+            throw new DukeException("Please enter event description");
+        }
+        if (args.get("at") == null) {
+            throw new DukeException("Please enter event date");
+        }
 
         Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(args.get("at")));
         return new AddCommand(evt);
@@ -122,6 +140,10 @@ public class Parser {
         }
     }
 
+    private static Command parseExit(String line) {
+        return new ExitCommand();
+    }
+
     private static Command parseDeletion(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
         try {
@@ -134,7 +156,9 @@ public class Parser {
 
     private static Command parseSearch(String line) throws DukeException {
         Dictionary<String, String> args = parseCommandAndParams(line);
-        if (args.get("primary") == null) { throw new DukeException("Please enter a keyword"); }
+        if (args.get("primary") == null) {
+            throw new DukeException("Please enter a keyword");
+        }
         return new FindCommand(args.get("primary"));
     }
 }

@@ -1,9 +1,8 @@
 package command;
 
-import commons.*;
-import task.*;
-import command.*;
-import storage.*;
+import commons.DukeException;
+import storage.Storage;
+import task.Task;
 
 import java.util.ArrayList;
 
