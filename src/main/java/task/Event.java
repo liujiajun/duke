@@ -6,14 +6,16 @@ import java.util.Date;
 
 public class Event extends Task{
 
-    protected Date at;
+    protected Date from;
+    protected Date to;
 
-    public Event(String description, Date at) {
+    public Event(String description, Date from, Date to) {
         super(description);
-        this.at = at;
+        this.from = from;
+        this.to = to;
     }
 
     public String toString() {
-        return String.format(super.toString(), "\uD83D\uDCC5") + String.format(" (at: %s)", TimeParser.convertDateToString(at));
+        return String.format(super.toString(), "\uD83D\uDCC5") + String.format(" (%s -- %s)", TimeParser.convertDateToString(from), TimeParser.convertDateToString(to));
     }
 }

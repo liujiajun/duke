@@ -122,7 +122,12 @@ public class Parser {
             throw new DukeException("Please enter event date");
         }
 
-        Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(args.get("at")));
+        String[] dates = args.get("at").strip().split("to");
+        if(dates.length < 2 || dates[0].equals("") || dates[1].equals("")) {
+            throw new DukeException("Please enter event date");
+        }
+
+        Event evt = new Event(args.get("primary"), TimeParser.convertStringToDate(dates[0].strip()),  TimeParser.convertStringToDate(dates[1].strip()));
         return new AddCommand(evt);
     }
 
