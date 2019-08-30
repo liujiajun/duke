@@ -5,6 +5,7 @@ import commons.Message;
 import commons.Ui;
 import storage.Storage;
 import task.Task;
+import task.TaskList;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class AddCommand extends Command {
         this.task = task;
     }
 
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         tasks.add(task);
         storage.serialize(tasks);
         Ui.showToUser(Message.getAddition(task, tasks));

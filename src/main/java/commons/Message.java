@@ -1,6 +1,7 @@
 package commons;
 
 import task.Task;
+import task.TaskList;
 
 import java.util.ArrayList;
 
@@ -30,37 +31,35 @@ public class Message {
         return buildMessage(BEGIN_DIVIDER, MESSAGE_HELLO, MESSAGE_HELLO_2, END_DIVIDER);
     }
 
-    public static String getAddition(Task t, ArrayList<Task> tasks) {
+    public static String getAddition(Task t, TaskList tasks) {
         return buildMessage(BEGIN_DIVIDER, String.format(MESSAGE_ADDED, t, tasks.size()), END_DIVIDER);
     }
 
-    public static String getDeletion(Task t, ArrayList<Task> tasks) {
+    public static String getDeletion(Task t, TaskList tasks) {
         return buildMessage(BEGIN_DIVIDER, String.format(MESSAGE_DELETION,
                 t.toString(),
                 tasks.size() - 1));
     }
 
-    public static String getList(ArrayList<Task> tasks) {
+    public static String getList(TaskList tasks) {
         StringBuilder message = new StringBuilder();
         message.append(BEGIN_DIVIDER + "\n");
-        int i = 0;
-        for (Task s : tasks) {
-            i++;
-            message.append(String.format("%d. %s", i, s.toString()));
+        for (int i = 0; i < tasks.size(); i++) {
+            Task s = tasks.get(i);
+            message.append(String.format("%d. %s", i + 1, s.toString()));
             message.append("\n");
         }
         message.append(END_DIVIDER);
         return message.toString();
     }
 
-    public static String getSearch(ArrayList<Task> tasks) {
+    public static String getSearch(TaskList tasks) {
         StringBuilder message = new StringBuilder();
         message.append(BEGIN_DIVIDER + "\n");
         message.append(MESSAGE_SEARCH + "\n");
-        int i = 0;
-        for (Task s : tasks) {
-            i++;
-            message.append(String.format("  %d. %s", i, s.toString()));
+        for (int i = 0; i < tasks.size(); i++) {
+            Task s = tasks.get(i);
+            message.append(String.format("  %d. %s", i + 1, s.toString()));
             message.append("\n");
         }
         message.append(END_DIVIDER);

@@ -5,6 +5,7 @@ import commons.Message;
 import commons.Ui;
 import storage.Storage;
 import task.Task;
+import task.TaskList;
 
 import java.util.ArrayList;
 
@@ -15,9 +16,10 @@ public class FindCommand extends Command {
         this.keyWord = keyWord.strip();
     }
 
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
-        ArrayList<Task> results = new ArrayList<>();
-        for (Task t : tasks) {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
+        TaskList results = new TaskList();
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
             if (t.getDescription().contains(keyWord)) {
                 results.add(t);
             }

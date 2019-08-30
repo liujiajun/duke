@@ -5,13 +5,14 @@ import commons.Message;
 import commons.Ui;
 import storage.Storage;
 import task.Task;
+import task.TaskList;
 
 import java.util.ArrayList;
 
 public class ExitCommand extends Command {
 
     @Override
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         Ui.showToUser(Message.getExit());
         System.exit(0);
     }

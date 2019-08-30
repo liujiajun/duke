@@ -5,6 +5,7 @@ import commons.Message;
 import commons.Ui;
 import storage.Storage;
 import task.Task;
+import task.TaskList;
 
 import java.util.ArrayList;
 
@@ -16,7 +17,7 @@ public class DoneCommand extends Command {
         this.index = index - 1;
     }
 
-    public void execute(ArrayList<Task> tasks, Storage storage) throws DukeException {
+    public void execute(TaskList tasks, Storage storage) throws DukeException {
         try {
             tasks.get(index).setDone(true);
             storage.serialize(tasks);
