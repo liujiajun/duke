@@ -42,8 +42,8 @@ public class Parser {
                 return parseDone(line);
             case COMMAND_BYE:
                 return parseExit(line);
-//            case COMMAND_DELETE:
-//                return parseDeletion(line);
+            case COMMAND_DELETE:
+                return parseDeletion(line);
 //            case COMMAND_SEARCH:
 //                return parseSearch(line);
         }
