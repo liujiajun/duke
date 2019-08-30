@@ -44,8 +44,8 @@ public class Parser {
                 return parseExit(line);
 //            case COMMAND_DELETE:
 //                return parseDeletion(line);
-//            case COMMAND_SEARCH:
-//                return parseSearch(line);
+            case COMMAND_SEARCH:
+                return parseSearch(line);
         }
 
         throw new DukeException(Message.MESSAGE_UNKNOWN_COMMAND);
