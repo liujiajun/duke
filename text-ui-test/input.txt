@@ -1,5 +1,5 @@
 todo hello
-event play guitar /at 10-10-1999 1800
+event play guitar /at 10-10-1999 1800 to 10-10-1999 1900
 deadline do homework /by 10-10-1999 1800
 delete 1
 list
