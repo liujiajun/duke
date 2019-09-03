@@ -1,3 +1,10 @@
+# Copyright Notice
+
+This is a project for AY19/20 CS2113T, National Univeristy of Singapore.
+
+**Plagiarism is a serious offense in NUS.** Please refer to [CS2113T Policy on plagiarism](https://nuscs2113-ay1920s1.github.io/website/admin/appendixB-policies.html#policy-on-plagiarism) if you intend to use any part of code from this repository.
+
+
 # Setting up
 
 **Prerequisites**
