@@ -3,14 +3,12 @@ package commons;
 import task.Task;
 import task.TaskList;
 
-import java.util.ArrayList;
-
 public class Message {
     private static final String BEGIN_DIVIDER = "----------------------------------------------";
     private static final String END_DIVIDER = BEGIN_DIVIDER + System.lineSeparator();
 
     private static final String MESSAGE_ERROR = "\u2639 OOPS!!! %s";
-    private static final String MESSAGE_HELLO = "Hello! I'm Duke";
+    private static final String MESSAGE_HELLO = "Hello! I'm logic.Duke";
     private static final String MESSAGE_HELLO_2 = "What can I do for you?";
     private static final String MESSAGE_ADDED = "Got it. I've added this task:\n  %s\n" +
             "Now you have %d tasks in the list.";
