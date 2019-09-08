@@ -7,8 +7,9 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command that serach for tasks in TaskList.
+ */
 public class FindCommand extends Command {
     private String keyWord;
 

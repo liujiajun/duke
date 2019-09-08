@@ -9,11 +9,11 @@ public class DukeTest {
 
     @Test
     public void test() {
+        duke.initialize();
         addTask_todo_addSuccess();
         addTask_deadline_addSuccess();
         addTask_event_addSuccess();
         addTask_event_invalidFormat();
-
         deleteTask_todo_deleteSuccess();
     }
 

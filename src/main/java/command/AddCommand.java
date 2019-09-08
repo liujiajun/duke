@@ -7,8 +7,9 @@ import storage.Storage;
 import task.Task;
 import task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command that adds a Task to TaskList.
+ */
 public class AddCommand extends Command {
 
     protected Task task;

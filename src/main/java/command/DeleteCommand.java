@@ -4,11 +4,11 @@ import commons.DukeException;
 import commons.Message;
 import commons.Ui;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command that deletes a Task from TaskList.
+ */
 public class DeleteCommand extends Command {
     private int index;
 

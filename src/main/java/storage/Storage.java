@@ -1,20 +1,31 @@
 package storage;
 
 import commons.DukeException;
-import task.Task;
 import task.TaskList;
 
-import java.util.*;
 import java.io.*;
 
+/**
+ * Stores tasks in file and reads tasks from file.
+ */
 public class Storage {
 
     private String path;
 
+    /**
+     * Constructor for Storage.
+     *
+     * @param path the path to store the file, including the file name.
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Serialize TaskList to file.
+     * @param tasks the TaskList to serialize.
+     * @throws DukeException if fails to serialize due to IO exception.
+     */
     public void serialize(TaskList tasks) throws DukeException {
         try {
             FileOutputStream fileOut =
@@ -28,6 +39,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Deserialize TaskList from file. If the file is not found, returns an empty TaskList.
+     * @return a TaskList object.
+     * @throws DukeException if file is damaged.
+     */
     public TaskList deserialize() throws DukeException {
         TaskList tasks = null;
         try {
@@ -42,8 +58,7 @@ public class Storage {
         } catch (IOException i) {
             if (i instanceof FileNotFoundException) {
                 return new TaskList();
-            }
-            else { throw new DukeException("IO Exception"); }
+            } else { throw new DukeException("IO Exception"); }
         }
     }
 }

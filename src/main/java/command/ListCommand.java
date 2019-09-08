@@ -3,11 +3,11 @@ package command;
 import commons.Message;
 import commons.Ui;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a command lists all tasks in TaskList.
+ */
 public class ListCommand extends Command {
     public ListCommand() {
 

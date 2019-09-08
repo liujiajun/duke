@@ -10,43 +10,58 @@ import task.TaskList;
 
 import java.util.Scanner;
 
+/**
+ * Control logic of Duke.
+ */
 public class Duke {
 
-    private Scanner SCANNER;
-    private Storage STORAGE;
-    private static TaskList tasks = new TaskList();
+    private Scanner scanner;
+    private Storage storage;
+    private static TaskList tasks;
 
-    public Duke() {
-        SCANNER = new Scanner(System.in);
-        STORAGE = new Storage("duke.dat");
-    }
-
+    /**
+     * Returns the response to userInput.
+     *
+     * @param input input from user.
+     * @return the response to userInput.
+     */
     public String getResponse(String input) {
         try {
             Command command = Parser.getCommand(input);
-            command.execute(tasks, STORAGE);
+            command.execute(tasks, storage);
         } catch (DukeException e) {
             Ui.showError(e.getMessage());
         }
         return Ui.getOutput();
     }
 
+    /**
+     * Initializes scanner and storage.
+     */
     public void initialize() {
 
         Ui.showToUser(Message.getWelcome());
 
+        scanner = new Scanner(System.in);
+
+        storage = new Storage("duke.dat");
+
         try {
-            tasks = STORAGE.deserialize();
+            tasks = storage.deserialize();
         } catch (DukeException e) {
             Ui.showError(e.getMessage());
         }
     }
 
+    /**
+     * Starts polling IO.
+     */
     public void start() {
+
         initialize();
 
-        while (SCANNER.hasNextLine()) {
-            String line = SCANNER.nextLine();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
             getResponse(line);
         }
     }

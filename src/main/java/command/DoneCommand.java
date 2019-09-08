@@ -4,11 +4,11 @@ import commons.DukeException;
 import commons.Message;
 import commons.Ui;
 import storage.Storage;
-import task.Task;
 import task.TaskList;
 
-import java.util.ArrayList;
-
+/**
+ * Represents a done command that set a Task to done.
+ */
 public class DoneCommand extends Command {
 
     protected int index;

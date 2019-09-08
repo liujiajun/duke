@@ -12,6 +12,9 @@ import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Parse user input into commands.
+ */
 public class Parser {
 
     private static final String COMMAND_LIST = "list";
@@ -23,6 +26,13 @@ public class Parser {
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_SEARCH = "find";
 
+    /**
+     * Parse user input.
+     *
+     * @param line user input.
+     * @return the command from user input.
+     * @throws DukeException if it is not valid command or command parameters are invalid.
+     */
     public static Command getCommand(String line) throws DukeException {
 
         Dictionary<String, String> params = parseCommandAndParams(line);
