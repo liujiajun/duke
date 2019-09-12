@@ -22,7 +22,7 @@ public class Storage {
     }
 
     /**
-     * Serialize TaskList to file.
+     * Serializes TaskList to file.
      * @param tasks the TaskList to serialize.
      * @throws DukeException if fails to serialize due to IO exception.
      */
@@ -40,7 +40,7 @@ public class Storage {
     }
 
     /**
-     * Deserialize TaskList from file. If the file is not found, returns an empty TaskList.
+     * Retrieves TaskList from file. If the file is not found, returns an empty TaskList.
      * @return a TaskList object.
      * @throws DukeException if file is damaged.
      */

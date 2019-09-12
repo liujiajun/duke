@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Parse time. Convert between date object and String date.
+ * Parser for time. Convert between date object and String date.
  */
 public class TimeParser {
 

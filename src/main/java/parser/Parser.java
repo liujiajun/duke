@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Parse user input into commands.
+ * Represents a parser to parse user input into commands.
  */
 public class Parser {
 
@@ -27,7 +27,7 @@ public class Parser {
     private static final String COMMAND_SEARCH = "find";
 
     /**
-     * Parse user input.
+     * Parses user input.
      *
      * @param line user input.
      * @return the command from user input.

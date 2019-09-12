@@ -35,7 +35,7 @@ public abstract class Task implements java.io.Serializable {
     }
 
     /**
-     * Set the status of the task.
+     * Sets the status of the task.
      * @param isDone the status of the task.
      */
     public void setDone(boolean isDone) {

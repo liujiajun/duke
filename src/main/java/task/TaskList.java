@@ -12,7 +12,7 @@ public class TaskList implements Serializable {
     private List<Task> tasks = new ArrayList<>();
 
     /**
-     * Add a new Task.
+     * Adds a new Task.
      *
      * @param task the Task to add.
      */
@@ -21,7 +21,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Get a Task.
+     * Gets a Task.
      * @param index index of the Task to get.
      * @return a Task at the index.
      */
@@ -30,7 +30,7 @@ public class TaskList implements Serializable {
     }
 
     /**
-     * Remove a Task.
+     * Removes a Task.
      * @param index index of the Task to remove.
      */
     public void remove(int index) {

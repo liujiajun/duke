@@ -9,7 +9,7 @@ import task.TaskList;
  */
 public abstract class Command {
     /**
-     * Execute the command.
+     * Executes the command.
      *
      * @param tasks   A TaskList containing all tasks.
      * @param storage A Storage object which specifies the location of the data.
