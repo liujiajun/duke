@@ -3,6 +3,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for Duke
+ */
 public class DukeTest {
 
     private Duke duke = new Duke();
