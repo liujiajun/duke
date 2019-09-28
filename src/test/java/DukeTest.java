@@ -32,10 +32,10 @@ public class DukeTest {
     }
 
     public void addTask_deadline_addSuccess() {
-        String input = "deadline 456 /by 10-10-1999 1800";
+        String input = "deadline 456 /by 10-10-1998 1800";
         String expected = "----------------------------------------------\n" +
                 "Got it. I've added this task:\n" +
-                "  ⏰ ❌ 456 (by: 10-10-1999 1800)\n" +
+                "  ⏰ ❌ 456 (by: 10-10-1998 1800)\n" +
                 "Now you have 2 tasks in the list.\n" +
                 "----------------------------------------------\n";
         assertEquals(expected, duke.getResponse(input));
