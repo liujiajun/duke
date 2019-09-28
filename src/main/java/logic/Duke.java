@@ -11,7 +11,7 @@ import task.TaskList;
 import java.util.Scanner;
 
 /**
- * Control logic of Duke.
+ * Control class of Duke, including the logic of Duke.
  */
 public class Duke {
 
